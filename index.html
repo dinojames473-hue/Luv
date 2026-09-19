@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>A Little Question ❤️</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: linear-gradient(135deg, #160009, #4b0017, #160009);
+        color: white;
+        overflow-x: hidden;
+    }
+
+    section {
+        min-height: 100vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px 20px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Floating hearts */
+    .heart {
+        position: fixed;
+        bottom: -30px;
+        font-size: 20px;
+        animation: floatUp linear infinite;
+        opacity: 0.6;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    @keyframes floatUp {
+        from {
+            transform: translateY(0) rotate(0deg);
+            opacity: 0;
+        }
+
+        20% {
+            opacity: 0.7;
+        }
+
+        to {
+            transform: translateY(-110vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    .content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        width: 100%;
+        max-width: 700px;
+    }
+
+    .small-text {
+        font-size: 15px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        opacity: 0.75;
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        font-size: clamp(45px, 9vw, 90px);
+        line-height: 1.05;
+        margin-bottom: 20px;
+        background: linear-gradient(90deg, #fff, #ffb6c9, #fff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+        from {
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
+        }
+        to {
+            filter: drop-shadow(0 0 20px rgba(255,120,160,0.5));
+        }
+    }
+
+    .subtitle {
+        font-size: 20px;
+        line-height: 1.6;
+        color: #ffdce6;
+        margin-bottom: 35px;
+    }
+
+    .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        position: relative;
+    }
+
+    button {
+        border: none;
+        padding: 15px 28px;
+        border-radius: 50px;
+        font-size: 17px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.25s ease;
+    }
+
+    .yes {
+        background: linear-gradient(135deg, #ff4f81, #ff174f);
+        color: white;
+        box-shadow: 0 10px 30px rgba(255, 30, 90, 0.3);
+    }
+
+    .yes:hover {
+        transform: translateY(-4px) scale(1.04);
+        box-shadow: 0 15px 40px rgba(255, 30, 90, 0.5);
+    }
+
+    .no {
+        background: rgba(255,255,255,0.12);
+        color: white;
+        border: 1px solid rgba(255,255,255,0.2);
+        position: relative;
+    }
+
+    .message-card {
+        width: 100%;
+        max-width: 600px;
+        background: rgba(255,255,255,0.09);
+        border: 1px solid rgba(255,255,255,0.18);
+        backdrop-filter: blur(18px);
+        border-radius: 30px;
+        padding: 35px 25px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
+
+    .message-card h2 {
+        font-size: 38px;
+        margin-bottom: 12px;
+    }
+
+    .message-card p {
+        color: #ffdce6;
+        margin-bottom: 25px;
+        line-height: 1.6;
+    }
+
+    textarea {
+        width: 100%;
+        min-height: 220px;
+        resize: vertical;
+        border: none;
+        outline: none;
+        border-radius: 20px;
+        padding: 20px;
+        font-size: 18px;
+        font-family: inherit;
+        background: rgba(255,255,255,0.95);
+        color: #3a0012;
+        box-shadow: inset 0 0 20px rgba(0,0,0,0.08);
+    }
+
+    textarea::placeholder {
+        color: #9b6475;
+    }
+
+    .continue {
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .final h2 {
+        font-size: clamp(40px, 8vw, 75px);
+        margin-bottom: 25px;
+    }
+
+    .final-message {
+        font-size: 22px;
+        line-height: 1.7;
+        color: #ffdce6;
+    }
+
+    .share-box {
+        margin-top: 30px;
+        padding: 20px;
+        border-radius: 20px;
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.15);
+        font-size: 18px;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    @media (max-width: 600px) {
+
+        section {
+            padding: 25px 15px;
+        }
+
+        .subtitle {
+            font-size: 17px;
+        }
+
+        .buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .buttons button {
+            width: 85%;
+        }
+
+        .message-card {
+            padding: 28px 18px;
+        }
+
+        .message-card h2 {
+            font-size: 32px;
+        }
+
+        textarea {
+            min-height: 200px;
+            font-size: 17px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- Floating Hearts -->
+<div class="heart" style="left:5%; animation-duration:8s;">❤️</div>
+<div class="heart" style="left:15%; animation-duration:11s; animation-delay:2s;">💕</div>
+<div class="heart" style="left:30%; animation-duration:9s; animation-delay:1s;">❤️</div>
+<div class="heart" style="left:50%; animation-duration:12s; animation-delay:3s;">💗</div>
+<div class="heart" style="left:70%; animation-duration:10s; animation-delay:2s;">💕</div>
+<div class="heart" style="left:85%; animation-duration:13s;">❤️</div>
+
+<!-- FIRST PAGE -->
+<section id="question">
+
+    <div class="content">
+
+        <div class="small-text">
+            I have something to ask you...
+        </div>
+
+        <h1>
+            I Love You ❤️
+        </h1>
+
+        <p class="subtitle">
+            And now I have just one little question for you...
+        </p>
+
+        <div class="buttons">
+
+            <button class="yes" onclick="sayYes()">
+                Yes ❤️
+            </button>
+
+            <button class="yes" onclick="sayYes()">
+                Yes, Of Course! 💕
+            </button>
+
+            <button class="no" id="noButton">
+                No 😜
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- MESSAGE PAGE -->
+<section id="messageSection" class="hidden">
+
+    <div class="content">
+
+        <div class="message-card">
+
+            <div class="small-text">
+                From your heart...
+            </div>
+
+            <h2>
+                Tell me something ❤️
+            </h2>
+
+            <p>
+                Write whatever you feel...
+                There are no rules. Just be honest with me. 💕
+            </p>
+
+            <textarea
+                id="message"
+                placeholder="Write your message here..."
+                autofocus></textarea>
+
+            <button class="yes continue" onclick="showFinal()">
+                I'm Done ❤️
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FINAL PAGE -->
+<section id="finalSection" class="hidden">
+
+    <div class="content final">
+
+        <div class="small-text">
+            One last thing...
+        </div>
+
+        <h2>
+            Thank You ❤️
+        </h2>
+
+        <p class="final-message">
+            Whatever you wrote came straight from your heart,
+            and that makes it special. 💕
+        </p>
+
+        <div class="share-box">
+
+            📸 <strong>Take a screenshot of this page</strong><br><br>
+
+            And share it with me ❤️
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+
+    const noButton = document.getElementById("noButton");
+
+    // Make the "No" button run away
+    function moveNoButton() {
+
+        const maxX = Math.min(
+            window.innerWidth - noButton.offsetWidth - 20,
+            350
+        );
+
+        const maxY = 250;
+
+        const x = Math.random() * maxX - maxX / 2;
+        const y = Math.random() * maxY - maxY / 2;
+
+        noButton.style.transform =
+            `translate(${x}px, ${y}px)`;
+
+    }
+
+    // Desktop
+    noButton.addEventListener("mouseenter", moveNoButton);
+
+    // Mobile
+    noButton.addEventListener("touchstart", function(e) {
+        e.preventDefault();
+        moveNoButton();
+    });
+
+
+    // YES clicked
+    function sayYes() {
+
+        const messageSection =
+            document.getElementById("messageSection");
+
+        messageSection.classList.remove("hidden");
+
+        setTimeout(() => {
+
+            messageSection.scrollIntoView({
+                behavior: "smooth"
+            });
+
+            // Automatically focus keyboard
+            setTimeout(() => {
+
+                document.getElementById("message").focus();
+
+            }, 700);
+
+        }, 100);
+
+    }
+
+
+    // FINAL PAGE
+    function showFinal() {
+
+        const message =
+            document.getElementById("message").value.trim();
+
+        if (message === "") {
+
+            document.getElementById("message").focus();
+
+            return;
+
+        }
+
+        const finalSection =
+            document.getElementById("finalSection");
+
+        finalSection.classList.remove("hidden");
+
+        setTimeout(() => {
+
+            finalSection.scrollIntoView({
+                behavior: "smooth"
+            });
+
+        }, 100);
+
+    }
+
+</script>
+
+</body>
+</html>
